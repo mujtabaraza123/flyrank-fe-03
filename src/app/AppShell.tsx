@@ -6,6 +6,7 @@ import { useMovieDetails } from '../hooks/useMovieDetails'
 import { MovieDetails } from '../components/movies/MovieDetails'
 import { useAuth } from '../hooks/useAuth'
 import { useFavorites } from '../hooks/useFavorites'
+import { FavoritesList } from '../components/favorites/FavoritesList'
 
 export function AppShell() {
   const { query, setQuery, movies, isLoading, status, error, handleSearch, toggleFavorite } = useMovieSearch()
@@ -80,6 +81,19 @@ export function AppShell() {
             onToggleFavorite={handleToggleFavorite}
             onOpenDetails={open}
           />
+        </section>
+
+        <section className="results-panel" id="favorites" aria-label="Saved favorites">
+          <div className="results-header">
+            <div>
+              <p className="eyebrow">Your saved movies</p>
+              <h2>Favorites</h2>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 8 }}>
+            <FavoritesList />
+          </div>
         </section>
 
         <MovieDetails isOpen={isOpen} movie={movie} isLoading={isDetailsLoading} error={detailsError} onClose={close} />
