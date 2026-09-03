@@ -463,6 +463,126 @@ a {
   }
 }
 
+/* Auth styles */
+.auth-slot {
+  display: flex;
+  align-items: center;
+}
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-loading {
+  color: #475569;
+  font-weight: 600;
+}
+
+.auth-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-user {
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.auth-form {
+  background: #fff;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: block;
+  min-width: 260px;
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.04);
+}
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-form h3 {
+  margin: 0 0 6px 0;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form input:focus {
+  box-shadow: 0 6px 14px rgba(124, 58, 237, 0.06);
+  border-color: rgba(124, 58, 237, 0.6);
+}
+
+.form-error {
+  color: #b91c1c;
+  background: rgba(254, 242, 242, 0.8);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 2px;
+}
+
+.form-actions button[type="submit"] {
+  appearance: none;
+  border: none;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.16);
+}
+
+.form-actions .link-button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #475569;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 6px 8px;
+}
+
+.link-button:disabled,
+.form-actions button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
 @media (max-width: 760px) {
   .topbar {
     flex-direction: column;
@@ -471,6 +591,17 @@ a {
 
   .main-nav {
     flex-wrap: wrap;
+  }
+
+  .auth-slot {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .auth-form {
+    min-width: 100%;
+    max-width: 360px;
   }
 
   .hero-panel {

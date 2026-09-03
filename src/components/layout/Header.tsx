@@ -1,3 +1,5 @@
+import { AuthPanel } from '../auth/AuthPanel'
+
 export function Header() {
   return (
     <header className="topbar" role="banner">
@@ -17,6 +19,10 @@ export function Header() {
         <a href="#discover">Discover</a>
         <a href="#favorites">Favorites</a>
       </nav>
+
+      <div className="auth-slot">
+        <AuthPanel />
+      </div>
     </header>
   )
 }

@@ -4,10 +4,35 @@ import { MovieGrid } from '../components/movies/MovieGrid'
 import { useMovieSearch } from '../hooks/useMovieSearch'
 import { useMovieDetails } from '../hooks/useMovieDetails'
 import { MovieDetails } from '../components/movies/MovieDetails'
+import { useAuth } from '../hooks/useAuth'
+import { useFavorites } from '../hooks/useFavorites'
 
 export function AppShell() {
   const { query, setQuery, movies, isLoading, status, error, handleSearch, toggleFavorite } = useMovieSearch()
   const { isOpen, movie, isLoading: isDetailsLoading, error: detailsError, open, close } = useMovieDetails()
+
+  const { currentUser } = useAuth()
+  const { favoriteIds, isLoading: favoritesLoading, error: favoritesError, toggleFavorite: toggleFavoritePersist } = useFavorites()
+
+  // derive displayed movies from persisted favorites so UI reflects server state
+  const displayedMovies = movies.map((m) => ({ ...m, isFavorite: favoriteIds.has(m.id) }))
+
+  const handleToggleFavorite = async (movieId: string) => {
+    if (!currentUser || !currentUser.uid) {
+      // clear prompt for authentication
+      // Keep UI simple: use alert for now
+      alert('Please sign in to save favorites.')
+      return
+    }
+
+    try {
+      await toggleFavoritePersist(movieId)
+    } catch (err) {
+      // show friendly error
+      console.error('Could not toggle favorite', err)
+      alert(err instanceof Error ? err.message : 'Could not update favorite')
+    }
+  }
 
   return (
     <div className="app-shell" id="home">
@@ -33,7 +58,7 @@ export function AppShell() {
 
             <div className="summary-row" aria-live="polite">
               <span>{movies.length} results</span>
-              <span>{movies.filter((movie) => movie.isFavorite).length} saved</span>
+              <span>{favoriteIds.size} saved</span>
             </div>
           </div>
         </section>
@@ -48,11 +73,11 @@ export function AppShell() {
           </div>
 
           <MovieGrid
-            movies={movies}
+            movies={displayedMovies}
             isLoading={isLoading}
             status={status}
             error={error}
-            onToggleFavorite={toggleFavorite}
+            onToggleFavorite={handleToggleFavorite}
             onOpenDetails={open}
           />
         </section>
